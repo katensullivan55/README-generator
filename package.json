@@ -9,7 +9,8 @@
   "author": "Kate Sullivan",
   "license": "ISC",
   "dependencies": {
-    "inquirer": "^6.5.2"
+    "inquirer": "^6.5.2",
+    "promisify": "^0.0.3"
   },
   "repository": {
     "type": "git",
