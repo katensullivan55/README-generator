@@ -37,7 +37,7 @@ function licenseSection(license) {
   }
   else {
     return 
-    '##${license} ${renderLicenseBadge(license)} ${renderLicenseLink(license)}'
+    '${renderLicenseBadge(license)} ${renderLicenseLink(license)}'
   }
 }
 
@@ -46,40 +46,40 @@ function generateMarkdown(data) {
   return 
     `# ${data.title}
     ${renderLicenseSection(data.license)}
-    ## Table of Contents
-    1. [Description] (#Description)
-    2. [Installation] (#Installation)
-    3. [Usage] (#Usage)
-    4. [Contribute] (#Contribute)
-    5. [Tests] (#Tests)
-    6. [Email Me] (#Email)
-    7. [Github] (#Github)
+    # Table of Contents
+    * [Description](#Description)
+    * [Installation](#Installation)
+    * [Usage](#Usage)
+    * [Contribute](#Contribute)
+    * [Tests](#Tests)
+    * [Email Me](#Email)
+    * [Github](#Github)
 
-    ## Description
+    # Description
 
     ${data.description}
 
-    ## Installation
+    # Installation
 
     ${data.installation}
 
-    ## Usage
+    # Usage
 
     ${data.usage}
 
-    ## Contribute
+    # Contribute
 
     ${data.contribute}
 
-    ## Tests
+    # Tests
 
     ${data.tests}
 
-    ## Email Me
+    # Email Me
 
     Contact me a ${data.email} with questions or suggestions
 
-    ## Github
+    # Github
 
     github.com/${data.githubuser}
 
