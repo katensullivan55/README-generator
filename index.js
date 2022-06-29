@@ -1,7 +1,7 @@
 // packages needed for this application
 const inquirer = require('inquirer');
 const fs = require('fs');
-const generateMarkdown = require('./generateMarkdown');
+const generateMarkdown = require('./utils/generateMarkdown');
 
 // questions for user input
 const questions = () => {
@@ -69,7 +69,7 @@ const questions = () => {
             name: 'license',
             type: 'list',
             message: 'Which license did you choose',
-            choices: ['MIT', 'GPL', 'Apache', 'none']
+            choices: ['MIT', 'ISC', 'Apache', 'none']
         },
         // email
         {
@@ -90,13 +90,10 @@ const questions = () => {
     })
 }
 
+// function to initialize app
+questions()
+
 // function to write README file
 function writeToFile(fileName, data) {
-    fs.writeFileSync(fileName, data)
-}
-
-// TODO: Create a function to initialize app
-function init() {}
-
-// Function call to initialize app
-init();
+    return fs.writeFileSync(fileName, data)
+};

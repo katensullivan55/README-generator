@@ -36,15 +36,52 @@ function renderLicenseSection(license) {
     return ''
   }
   else {
-    return '##${license}
-    ${renderLicenseBadge(license)}
-    ${renderLicenseLink(license)}'
+    return 
+    '##${license} ${renderLicenseBadge(license)} ${renderLicenseLink(license)}'
   }
 }
 
 // TODO: Create a function to generate markdown for README
 function generateMarkdown(data) {
-  return `# ${data.title}
+  return 
+    `# ${data.title}
+    ${renderLicenseSection(data.license)}
+    ##Table of Contents
+    1. [Description] (#Description)
+    2. [Installation] (#Installation)
+    3. [Usage] (#Usage)
+    4. [Contribute] (#Contribute)
+    5. [Tests] (#Tests)
+    6. [Email Me] (#Email)
+    7. [Github] (#Github)
+
+    ##Description
+
+    ${data.description}
+
+    ##Installation
+
+    ${data.installation}
+
+    ##Usage
+
+    ${data.usage}
+
+    ##Contribute
+
+    ${data.contribute}
+
+    ##Tests
+
+    ${data.tests}
+
+    ##Email Me
+
+    ${data.email} to contact me with questions or suggestions
+
+    ##Github
+
+    github.com/${data.githubuser}
 
 `;
 }
