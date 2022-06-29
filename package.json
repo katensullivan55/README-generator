@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "inquirer": "^6.5.2",
+    "path": "^0.12.7",
     "promisify": "^0.0.3"
   },
   "repository": {

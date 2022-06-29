@@ -1,11 +1,11 @@
 // packages needed for this application
 const inquirer = require("inquirer");
-const fs = require("fs");
+const fs = require('fs');
 const generateMarkdown = require("./utils/generateMarkdown");
+const path = require('path');
 
 // questions for user input
-const questions = () => {
-    return inquirer.prompt([
+const questions = [
     //github username
     {
         name: 'githubuser',
@@ -62,7 +62,7 @@ const questions = () => {
     {
         name: 'tests',
         type: 'input',
-        message: 'How can the user run tests oin this code?'
+        message: 'What tests were run??'
     },
     // license
     {
@@ -83,20 +83,21 @@ const questions = () => {
                 console.log('Please enter your email!');
                 return false;
             }
-            }
-    },
+        }
+    }
+];
 
-    ]).then((answers) => {
-            
-    writeToFile('README.md', generateMarkdown(answers))
-
-    })
-}
-
-questions()
-
+// function to write README file
 function writeToFile(fileName, data) {
+    return fs.writeFileSync(path.join(process.cwd(), fileName), data);
+  }
 
-    return fs.writeFileSync(fileName, data)
+// function to initialize app
+function init() {
+    inquirer.prompt(questions).then((answers) => {
+      writeToFile("README.md", generateMarkdown({ ...answers }));
+    });
+  }
 
-}
+// function call to initialize app
+init();

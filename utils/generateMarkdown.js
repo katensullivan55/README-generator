@@ -1,13 +1,13 @@
 // returns a license badge based on which license is passed in - if there is no license, return an empty string
-function renderLicenseBadge(license) {
+function licenseBadge(license) {
   if(license === 'MIT') {
-    return '[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)'
+    return '[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)]'
   }
   if(license === 'ISC') {
-    return '[![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg)](https://opensource.org/licenses/ISC)'
+    return '[![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg)]'
   }
   if(license === 'Apache') {
-    return '[![License: Apache](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)'
+    return '[![License: Apache](https://img.shields.io/badge/License-Apache_2.0-blue.svg)]'
   }
   if(license === 'none') {
     return ''
@@ -15,7 +15,7 @@ function renderLicenseBadge(license) {
 }
 
 // returns the license link - if there is no license, return an empty string
-function renderLicenseLink(license) {
+function licenseLink(license) {
   if(license === 'MIT') {
     return '[MIT](https://opensource.org/licenses/MIT)'
   }
@@ -31,7 +31,7 @@ function renderLicenseLink(license) {
 }
 
 // returns the license section of README - if there is no license, return an empty string
-function renderLicenseSection(license) {
+function licenseSection(license) {
   if(license === 'none') {
     return ''
   }
@@ -46,7 +46,7 @@ function generateMarkdown(data) {
   return 
     `# ${data.title}
     ${renderLicenseSection(data.license)}
-    ##Table of Contents
+    ## Table of Contents
     1. [Description] (#Description)
     2. [Installation] (#Installation)
     3. [Usage] (#Usage)
@@ -55,31 +55,31 @@ function generateMarkdown(data) {
     6. [Email Me] (#Email)
     7. [Github] (#Github)
 
-    ##Description
+    ## Description
 
     ${data.description}
 
-    ##Installation
+    ## Installation
 
     ${data.installation}
 
-    ##Usage
+    ## Usage
 
     ${data.usage}
 
-    ##Contribute
+    ## Contribute
 
     ${data.contribute}
 
-    ##Tests
+    ## Tests
 
     ${data.tests}
 
-    ##Email Me
+    ## Email Me
 
-    ${data.email} to contact me with questions or suggestions
+    Contact me a ${data.email} with questions or suggestions
 
-    ##Github
+    ## Github
 
     github.com/${data.githubuser}
 
