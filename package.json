@@ -25,5 +25,6 @@
   "bugs": {
     "url": "https://github.com/katensullivan55/README-generator/issues"
   },
-  "homepage": "https://github.com/katensullivan55/README-generator#readme"
+  "homepage": "https://github.com/katensullivan55/README-generator#readme",
+  "devDependencies": {}
 }

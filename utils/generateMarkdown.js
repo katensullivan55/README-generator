@@ -1,5 +1,5 @@
 // returns a license badge based on which license is passed in - if there is no license, return an empty string
-function licenseBadge(license) {
+function renderLicenseBadge(license) {
   if(license === 'MIT') {
     return '[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)]'
   }
@@ -15,7 +15,7 @@ function licenseBadge(license) {
 }
 
 // returns the license link - if there is no license, return an empty string
-function licenseLink(license) {
+function renderLicenseLink(license) {
   if(license === 'MIT') {
     return '[MIT](https://opensource.org/licenses/MIT)'
   }
@@ -31,13 +31,13 @@ function licenseLink(license) {
 }
 
 // returns the license section of README - if there is no license, return an empty string
-function licenseSection(license) {
+function renderLicenseSection(license) {
   if(license === 'none') {
     return ''
   }
   else {
     return 
-    '${renderLicenseBadge(license)} ${renderLicenseLink(license)}'
+    ' ${renderLicenseBadge(license)} ${renderLicenseLink(license)} '
   }
 }
 
