@@ -32,17 +32,13 @@ function renderLicenseLink(license) {
 
 // returns the license section of README - if there is no license, return an empty string
 function renderLicenseSection(license) {
-  if(license === 'MIT') {
-    return ''
-  }
-  if(license === 'ISC') {
-    return ''
-  }
-  if(license === 'Apache') {
-    return ''
-  }
   if(license === 'none') {
     return ''
+  }
+  else {
+    return '##${license}
+    ${renderLicenseBadge(license)}
+    ${renderLicenseLink(license)}'
   }
 }
 

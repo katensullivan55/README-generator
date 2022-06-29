@@ -1,22 +1,38 @@
-// TODO: Include packages needed for this application
+// packages needed for this application
 const inquirer = require('inquirer');
 const fs = require('fs');
 const generateMarkdown = require('./generateMarkdown');
 
-// TODO: Create an array of questions for user input
+// questions for user input
 const questions = () => {
     return inquirer.prompt([
         //github username
         {
             name: 'githubuser',
             type: 'input',
-            message: 'What is your github username?'
+            message: 'What is your github username? (Required)',
+            validate: nameInput => {
+                if (nameInput) {
+                  return true;
+                } else {
+                  console.log('Please enter your username!');
+                  return false;
+                }
+              }
         },
         // repo title
         {
             name: 'title',
             type: 'input',
-            message: 'Enter the title of your project'
+            message: 'Enter the title of your project (Required)',
+            validate: nameInput => {
+                if (nameInput) {
+                  return true;
+                } else {
+                  console.log('Please enter the title of your project!');
+                  return false;
+                }
+              }
         },
         // description of repo
         {
@@ -54,13 +70,27 @@ const questions = () => {
             type: 'list',
             message: 'Which license did you choose',
             choices: ['MIT', 'GPL', 'Apache', 'none']
+        },
+        // email
+        {
+            name: 'email',
+            type: 'input',
+            message: 'Please input yourt email (Required)',
+            validate: nameInput => {
+                if (nameInput) {
+                  return true;
+                } else {
+                  console.log('Please enter your email!');
+                  return false;
+                }
+              }
         }
     ]).then((answers) => {
         writeToFile('README.md', generateMarkdown(answers))
     })
 }
 
-// TODO: Create a function to write README file
+// function to write README file
 function writeToFile(fileName, data) {
     fs.writeFileSync(fileName, data)
 }
