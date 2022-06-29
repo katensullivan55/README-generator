@@ -1,7 +1,7 @@
 // TODO: Include packages needed for this application
 const inquirer = require('inquirer');
 const fs = require('fs');
-const generateMarkdown = require(./generateMarkdown);
+const generateMarkdown = require('./generateMarkdown');
 
 // TODO: Create an array of questions for user input
 const questions = () => {
@@ -11,7 +11,7 @@ const questions = () => {
             name: 'githubuser',
             type: 'input',
             message: 'What is your github username?'
-        }
+        },
         // repo title
         {
             name: 'title',
@@ -23,31 +23,31 @@ const questions = () => {
             name: 'description',
             type: 'input',
             message: 'Describe your project - what purpose does it serve, what would a user want to get out of it, etc'
-        }
+        },
         // installation
         {
             name: 'installation',
             type: 'input',
             message: 'Leave instructions for the user to install or implement project'
-        }
+        },
         // usage
         {
-            name: 'usage'
-            type: 'input'
+            name: 'usage',
+            type: 'input',
             message: 'How can this project be used?'
-        }
+        },
         // contribute
         {
             name: 'contribute',
             type: 'input',
             message: 'Give instructions for coders who want to contribute'
-        }
+        },
         // tests
         {
             name: 'tests',
             type: 'input',
             message: 'How can the user run tests oin this code?'
-        }
+        },
         // license
         {
             name: 'license',
