@@ -9,6 +9,8 @@
   "author": "Kate Sullivan",
   "license": "ISC",
   "dependencies": {
+    "add": "^2.0.6",
+    "git": "^0.1.5",
     "inquirer": "^6.5.2",
     "path": "^0.12.7",
     "promisify": "^0.0.3"
@@ -25,6 +27,5 @@
   "bugs": {
     "url": "https://github.com/katensullivan55/README-generator/issues"
   },
-  "homepage": "https://github.com/katensullivan55/README-generator#readme",
-  "devDependencies": {}
+  "homepage": "https://github.com/katensullivan55/README-generator#readme"
 }

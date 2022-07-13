@@ -1,71 +1,93 @@
-// packages needed for this application
-const fs = require('fs');
+// External packages
 const inquirer = require('inquirer');
-const generateMarkdown = require('./utils/generateMarkdown');
-const path = require('path');
+const fs = require('fs');
+const util = require('util');
 
-// questions for user input
+// Internal modules
+const api = require('./utils/api.js');
+const generateMarkdown = require('./utils/generateMarkdown.js');
+
+// Inquirer prompts for userResponses
 const questions = [
-    //github username
     {
-    name: 'githubuser',
-    type: 'input',
-    message: 'What is your github username?'
+        type: 'input',
+        message: "What is your GitHub username?",
+        name: 'username',
+        default: 'katensullivan55',
+        validate: function (answer) {
+            if (answer.length < 1) {
+                return console.log("A valid GitHub username is required.");
+            }
+            return true;
+        }
     },
-    // repo title
     {
-    name: 'title',
-    type: 'input',
-    message: 'Enter the title of your project'
+        type: 'input',
+        message: "What is the name of your GitHub repo?",
+        name: 'repo',
+        default: 'README-generator',
+        validate: function (answer) {
+            if (answer.length < 1) {
+                return console.log("A valid GitHub repo is required");
+            }
+            return true;
+        }
     },
-    // description of repo
     {
-    name: 'description',
-    type: 'input',
-    message: 'Describe your project - what purpose does it serve, what would a user want to get out of it, etc'
+        type: 'input',
+        message: "What is the title of your project?",
+        name: 'title',
+        default: 'Project Title',
+        validate: function (answer) {
+            if (answer.length < 1) {
+                return console.log("A valid project title is required.");
+            }
+            return true;
+        }
     },
-    // installation
     {
-    name: 'installation',
-    type: 'input',
-    message: 'Leave instructions for the user to install or implement project'
+        type: 'input',
+        message: "Write a description of your project.",
+        name: 'description',
+        default: 'Project Description',
+        validate: function (answer) {
+            if (answer.length < 1) {
+                return console.log("A valid project description, is required.");
+            }
+            return true;
+        }
     },
-    // usage
     {
-    name: 'usage',
-    type: 'input',
-    message: 'How can this project be used?'
+        type: 'input',
+        message: "List the steps to install your project for the (Installation):",
+        name: 'installation'
     },
-    // contribute
     {
-    name: 'contribute',
-    type: 'input',
-    message: 'Give instructions for coders who want to contribute'
+        type: 'input',
+        message: "Please provide instructions and examples of your project in use (Usage):",
+        name: 'usage'
     },
-    // tests
     {
-    name: 'tests',
-    type: 'input',
-    message: 'What tests were run?'
+        type: 'input',
+        message: "Please provide guidelines on how other developers can contribute to your project:",
+        name: 'contributing'
     },
-    // license
     {
-    name: 'license',
-    type: 'list',
-    message: 'Which license did you choose',
-    choices: ['MIT', 'ISC', 'Apache', 'none']
+        type: 'input',
+        message: "Please list any tests written for your app and provide examples:",
+        name: 'tests'
     },
-    // email
     {
-    name: 'email',
-    type: 'input',
-    message: 'Please input yourt email'
-    },
+        type: 'list',
+        message: "Choose a license for your project.",
+        choices: ['MIT', 'ISC', 'Apache', 'none'],
+        name: 'license'
+    }
 ];
 
 // function to write README file
 function writeToFile(fileName, data) {
-    fs.writeFile(`${fileName}.md`, generateMarkdown(data), err => {
+    fs.writeFile('${fileName}.md', generateMarkdown(data), err => {
         if(err) {
             console.log(err);
             return;
