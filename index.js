@@ -1,108 +1,98 @@
-// External packages
 const inquirer = require('inquirer');
 const fs = require('fs');
-const util = require('util');
+const path = require('path');
 
-// Internal modules
-const api = require('./utils/api.js');
-const generateMarkdown = require('./utils/generateMarkdown.js');
-
-// Inquirer prompts for userResponses
 const questions = [
     {
         type: 'input',
-        message: "What is your GitHub username?",
-        name: 'username',
-        default: 'katensullivan55',
-        validate: function (answer) {
-            if (answer.length < 1) {
-                return console.log("A valid GitHub username is required.");
-            }
-            return true;
-        }
+        message: 'What is the title of your project?',
+        name: 'title'
     },
     {
         type: 'input',
-        message: "What is the name of your GitHub repo?",
-        name: 'repo',
-        default: 'README-generator',
-        validate: function (answer) {
-            if (answer.length < 1) {
-                return console.log("A valid GitHub repo is required");
-            }
-            return true;
-        }
+        message: 'What is the description for your project?',
+        name: 'description'
     },
     {
         type: 'input',
-        message: "What is the title of your project?",
-        name: 'title',
-        default: 'Project Title',
-        validate: function (answer) {
-            if (answer.length < 1) {
-                return console.log("A valid project title is required.");
-            }
-            return true;
-        }
+        message: 'How would you run/install your project?',
+        name: 'install'
     },
     {
         type: 'input',
-        message: "Write a description of your project.",
-        name: 'description',
-        default: 'Project Description',
-        validate: function (answer) {
-            if (answer.length < 1) {
-                return console.log("A valid project description, is required.");
-            }
-            return true;
-        }
-    },
-    {
-        type: 'input',
-        message: "List the steps to install your project for the (Installation):",
-        name: 'installation'
-    },
-    {
-        type: 'input',
-        message: "Please provide instructions and examples of your project in use (Usage):",
+        message: 'Please describe how your project should be used.',
         name: 'usage'
     },
     {
+        type: 'list',
+        message: 'What license would you like to give your project?',
+        name: 'license',
+        choices: [
+            'Apache',
+            'BSD 3',
+            'Creative Commons',
+            'MIT',
+            'Zlib'
+        ]
+    },
+    {
         type: 'input',
-        message: "Please provide guidelines on how other developers can contribute to your project:",
+        message: 'Who contributed to the project and how can others contribute?',
         name: 'contributing'
     },
     {
         type: 'input',
-        message: "Please list any tests written for your app and provide examples:",
-        name: 'tests'
+        message: 'How do you run your tests for this project?',
+        name: 'test'
     },
     {
-        type: 'list',
-        message: "Choose a license for your project.",
-        choices: ['MIT', 'ISC', 'Apache', 'none'],
-        name: 'license'
+        type: 'input',
+        message: 'What is your GitHub username?',
+        name: 'github'
+    },
+    {
+        type: 'input',
+        message: 'What is your preferred contact e-mail address?',
+        name: 'email'
+    },
+]
+
+inquirer.prompt(questions)
+.then(function(answers){
+    generateReadMe(answers)
+});
+
+const templateLocation = path.join(__dirname, 'src', 'template','README.md')
+const portfolioLocation = path.join(__dirname, 'output','README.md')
+
+function generateReadMe(answers){
+    const templateReadMe = fs.readFileSync(templateLocation, 'utf-8')
+    
+    let replacedReadMe = templateReadMe.replace('{{title}}',answers.title)
+    .replace('{{description}}',answers.description)
+    .replace('{{install}}',answers.install)
+    .replace('{{usage}}',answers.usage)
+    .replace('{{contributing}}',answers.contributing)
+    .replace('{{test}}',answers.test)
+    .replace('{{github}}',answers.github)
+    .replace('{{email}}',answers.email)
+    
+    if (answers.license === 'MIT'){
+        replacedReadMe = replacedReadMe.replace('{{badge}}','![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)')
+        .replace('{{license}}',answers.license + ': Permissive free license software. Please visit https://opensource.org/licenses/MIT for more information.')
+    } else if (answers.license === 'Apache'){
+        replacedReadMe = replacedReadMe.replace('{{badge}}','![GitHub license](https://img.shields.io/badge/License-Apache%202.0-blue.svg)')
+        .replace('{{license}}',answers.license + ': Permissive free license software. Please visit https://www.apache.org/licenses/LICENSE-2.0 for more information.')
+    } else if (answers.license === 'BSD 3'){
+        replacedReadMe = replacedReadMe.replace('{{badge}}','![GitHub license](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)')
+        .replace('{{license}}',answers.license + ': Low restriction license type that does not have requirements on redistribution. Please visit https://opensource.org/licenses/BSD-3-Clause for more information.')
+    } else if (answers.license === 'Creative Commons'){
+        replacedReadMe = replacedReadMe.replace('{{badge}}','![GitHub license](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)')
+        .replace('{{license}}',answers.license + ': Public copyright license that enables free distribution of a copyrighted work as long as credit is given. Please visit https://creativecommons.org/licenses/ for more information.')
+    } else if (answers.license === 'Zlib'){
+        replacedReadMe = replacedReadMe.replace('{{badge}}','![GitHub license](https://img.shields.io/badge/License-Zlib-lightgrey.svg)')
+        .replace('{{license}}',answers.license + ': Permissive free license software. Please visit https://opensource.org/licenses/Zlib for more information.')
     }
-];
-
-// function to write README file
-function writeToFile(fileName, data) {
-    fs.writeFile('${fileName}.md', generateMarkdown(data), err => {
-        if(err) {
-            console.log(err);
-            return;
-        }
-        console.log('README.md has been generated');
-    });
-};
-
-// function to initialize app
-function init() {
-    inquirer.prompt(questions)
-        .then((answers) => {
-            writeToFile('README.md', answers);
-        });
+        
+    fs.writeFileSync(portfolioLocation, replacedReadMe)
 }
-
-// function call to initialize app
-init();
