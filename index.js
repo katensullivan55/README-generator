@@ -5,27 +5,27 @@ const path = require('path');
 const questions = [
     {
         type: 'input',
-        message: 'What is you',
+        message: 'What if your project title?',
         name: 'title'
     },
     {
         type: 'input',
-        message: 'What is the description for your project?',
+        message: 'Please describe your project:',
         name: 'description'
     },
     {
         type: 'input',
-        message: 'How would you run/install your project?',
+        message: 'How can your project be run/installed?',
         name: 'install'
     },
     {
         type: 'input',
-        message: 'Please describe how your project should be used.',
+        message: 'How should your project be used?',
         name: 'usage'
     },
     {
         type: 'list',
-        message: 'What license would you like to give your project?',
+        message: 'What is your project license?',
         name: 'license',
         choices: [
             'Apache',
@@ -37,12 +37,12 @@ const questions = [
     },
     {
         type: 'input',
-        message: 'Who contributed to the project and how can others contribute?',
+        message: 'Who contributed?',
         name: 'contributing'
     },
     {
         type: 'input',
-        message: 'How do you run your tests for this project?',
+        message: 'What tests were run for this project?',
         name: 'test'
     },
     {
@@ -52,7 +52,7 @@ const questions = [
     },
     {
         type: 'input',
-        message: 'What is your preferred contact e-mail address?',
+        message: 'What is your e-mail address?',
         name: 'email'
     },
 ]
