@@ -30,7 +30,7 @@ Use project for personal or professional reasons to generate READMEs
 
 ## License
 
-MIT: Permissive free license software. Please visit https://opensource.org/licenses/MIT for more information.
+MIT: Permissive free license software.
   
 ## Contributing Guidelines
 
