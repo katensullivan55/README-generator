@@ -5,7 +5,7 @@ const path = require('path');
 const questions = [
     {
         type: 'input',
-        message: 'What is the title of your project?',
+        message: 'What is you',
         name: 'title'
     },
     {
@@ -62,13 +62,13 @@ inquirer.prompt(questions)
     generateReadMe(answers)
 });
 
-const templateLocation = path.join(__dirname, 'src', 'template','README.md')
-const portfolioLocation = path.join(__dirname, 'output','README.md')
+const tempSpot = path.join(__dirname, 'src','README-template.md')
+const portSpot = path.join(__dirname,'README.md')
 
 function generateReadMe(answers){
-    const templateReadMe = fs.readFileSync(templateLocation, 'utf-8')
+    const readmeTemp = fs.readFileSync(tempSpot, 'utf-8')
     
-    let replacedReadMe = templateReadMe.replace('{{title}}',answers.title)
+    let newReadme = readmeTemp.replace('{{title}}',answers.title)
     .replace('{{description}}',answers.description)
     .replace('{{install}}',answers.install)
     .replace('{{usage}}',answers.usage)
@@ -78,21 +78,21 @@ function generateReadMe(answers){
     .replace('{{email}}',answers.email)
     
     if (answers.license === 'MIT'){
-        replacedReadMe = replacedReadMe.replace('{{badge}}','![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)')
+        newReadme = newReadme.replace('{{badge}}','![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)')
         .replace('{{license}}',answers.license + ': Permissive free license software. Please visit https://opensource.org/licenses/MIT for more information.')
     } else if (answers.license === 'Apache'){
-        replacedReadMe = replacedReadMe.replace('{{badge}}','![GitHub license](https://img.shields.io/badge/License-Apache%202.0-blue.svg)')
+        newReadme = newReadme.replace('{{badge}}','![GitHub license](https://img.shields.io/badge/License-Apache%202.0-blue.svg)')
         .replace('{{license}}',answers.license + ': Permissive free license software. Please visit https://www.apache.org/licenses/LICENSE-2.0 for more information.')
     } else if (answers.license === 'BSD 3'){
-        replacedReadMe = replacedReadMe.replace('{{badge}}','![GitHub license](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)')
+        newReadme = newReadme.replace('{{badge}}','![GitHub license](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)')
         .replace('{{license}}',answers.license + ': Low restriction license type that does not have requirements on redistribution. Please visit https://opensource.org/licenses/BSD-3-Clause for more information.')
     } else if (answers.license === 'Creative Commons'){
-        replacedReadMe = replacedReadMe.replace('{{badge}}','![GitHub license](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)')
+        newReadme = newReadme.replace('{{badge}}','![GitHub license](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)')
         .replace('{{license}}',answers.license + ': Public copyright license that enables free distribution of a copyrighted work as long as credit is given. Please visit https://creativecommons.org/licenses/ for more information.')
     } else if (answers.license === 'Zlib'){
-        replacedReadMe = replacedReadMe.replace('{{badge}}','![GitHub license](https://img.shields.io/badge/License-Zlib-lightgrey.svg)')
+        newReadme = newReadme.replace('{{badge}}','![GitHub license](https://img.shields.io/badge/License-Zlib-lightgrey.svg)')
         .replace('{{license}}',answers.license + ': Permissive free license software. Please visit https://opensource.org/licenses/Zlib for more information.')
     }
         
-    fs.writeFileSync(portfolioLocation, replacedReadMe)
+    fs.writeFileSync(portSpot, newReadme)
 }
